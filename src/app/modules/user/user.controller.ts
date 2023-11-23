@@ -40,8 +40,7 @@ const getAllUser = async (req: Request, res: Response) => {
 };
 const getSingleUser = async (req: Request, res: Response) => {
   try {
-    const {userId} =req.params;
-    console.log("🚀 ~ file: user.controller.ts:44 ~ getSingleUser ~ userId:", typeof(userId))
+    const userId = parseInt(req.params.userId, 10);
     const result = await UserServices.getSingleUserFromDB(userId);
      res.status(200).json({
       success: true,
@@ -58,7 +57,7 @@ const getSingleUser = async (req: Request, res: Response) => {
 };
 const updateUser = async (req: Request, res: Response) => {
   try {
-    const { userId } = req.params;
+    const userId = parseInt(req.params.userId, 10);
     const result = await UserServices.deleteUserFromDB(userId);
      res.status(200).json({
        success: true,
@@ -76,7 +75,7 @@ const updateUser = async (req: Request, res: Response) => {
 const deleteUser = async (req: Request, res: Response) => {
   try {
     const {user: updateData} =req.body;
-     const { userId } = req.params;
+    const userId = parseInt(req.params.userId, 10);
      const zotParseData = UserValidationSchema.parse(updateData);
     const result = await UserServices.updateUserToDB(userId,zotParseData);
     const updateUser = await UserServices.getSingleUserFromDB(userId);
