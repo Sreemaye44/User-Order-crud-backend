@@ -7,11 +7,12 @@ const createUser = async (req: Request, res: Response) => {
     const { user: userData } = req.body;
     const zotParseData = UserValidationSchema.parse(userData);
     const result = await UserServices.createUserIntoDB(zotParseData);
-
+     const sanitizedResult = result.toObject({ getters: true });
+     const { password, ...resultWithoutPassword } = sanitizedResult;
     res.status(200).json({
       success: true,
       message: "User created successfully!",
-      data: result,
+      data: resultWithoutPassword,
     });
   } catch (err: any) {
     res.status(500).json({

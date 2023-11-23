@@ -1,5 +1,7 @@
 import { Schema, model } from "mongoose";
 import { TAddress, TFullName, TOrder, TUser, UserModel } from "./user/user.interface";
+import bcrypt from "bcrypt";
+import config from "../config";
 
 const FullNameSchema = new Schema<TFullName>({
   firstName: { type: String, required: true },
@@ -28,6 +30,14 @@ const userSchema = new Schema<TUser, UserModel>({
   hobbies: { type: [String], required: true },
   address: { type: AddressSchema, required: true },
   orders: {type: [OrderSchema]},
+});
+
+//create passowrd decrypt middleware
+
+userSchema.pre("save", async function (next) {
+  const user = this;
+  user.password = await bcrypt.hash(user.password, Number(config.salt_rounds));
+  next();
 });
 
 //creating static schema method
