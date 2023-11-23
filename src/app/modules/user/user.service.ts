@@ -18,8 +18,14 @@ const getSingleUserFromDB=async(id:string)=>{
     return result;
 }
 
+const updateUserToDB = async (id: string, updateData: TUser) => {
+  const result = await User.replaceOne({ userId: id }, updateData);
+  return result;
+};
+
 export const UserServices = {
   createUserIntoDB,
   getUsersDataFromDB,
   getSingleUserFromDB,
+  updateUserToDB,
 };

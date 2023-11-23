@@ -42,8 +42,7 @@ const getSingleUser = async (req: Request, res: Response) => {
   try {
     const {userId} =req.params;
     const result = await UserServices.getSingleUserFromDB(userId);
-
-    res.status(200).json({
+     res.status(200).json({
       success: true,
       message: "User fetched successfully!",
       data: result,
@@ -56,11 +55,30 @@ const getSingleUser = async (req: Request, res: Response) => {
     });
   }
 };
+const updateUser = async (req: Request, res: Response) => {
+  try {
+    const {user: updateData} =req.body;
+     const { userId } = req.params;
+     const zotParseData = UserValidationSchema.parse(updateData);
+    const result = await UserServices.updateUserToDB(userId,zotParseData);
+    const updateUser = await UserServices.getSingleUserFromDB(userId);
+     res.status(200).json({
+      success: true,
+      message: "User updated successfully!",
+      data: updateUser,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || "User not found",
+      error: err,
+    });
+  }
+};
 
-
-
-export const userController={
-    createUser,
-    getAllUser,
-    getSingleUser
-}
+export const userController = {
+  createUser,
+  getAllUser,
+  getSingleUser,
+  updateUser,
+};
