@@ -1,5 +1,5 @@
 import { z } from "zod";
-const FullNameSchema = z.object({
+const FullNameValidationSchema = z.object({
   firstName: z
     .string()
     .min(2)
@@ -16,13 +16,13 @@ const FullNameSchema = z.object({
     }),
 });
 
-const AddressSchema = z.object({
+const AddressValidationSchema = z.object({
   street: z.string().min(1),
   city: z.string().min(1),
   country: z.string(),
 });
 
-const OrderSchema = z.object({
+const OrderValidationSchema = z.object({
   productName: z.string(),
   price: z.string().regex(/^\d+(\.\d{1,2})?$/, {
     message: "Price must be a valid number with up to 2 decimal places",
@@ -32,11 +32,11 @@ const OrderSchema = z.object({
   }),
 });
 
-const UserSchema = z.object({
+const UserValidationSchema = z.object({
   userId: z.number(),
-  userName: z.string(),
+  username: z.string(),
   password: z.string(),
-  fullName: FullNameSchema,
+  fullName: FullNameValidationSchema,
   age: z.number().int().positive().refine((age) => age !== 0, {
   message: "Age must be a positive number and cannot be zero",
 }),
@@ -45,6 +45,8 @@ const UserSchema = z.object({
   }),
   isActive: z.boolean(),
   hobbies: z.array(z.string()),
-  address: AddressSchema,
-  orders: z.array(OrderSchema),
+  address: AddressValidationSchema,
+  orders: z.array(OrderValidationSchema).optional(),
 });
+
+export default UserValidationSchema;

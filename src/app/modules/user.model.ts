@@ -19,7 +19,7 @@ const OrderSchema = new Schema<TOrder>({
 
 const userSchema = new Schema<TUser>({
   userId: { type: Number, required: true, unique: true },
-  userName: { type: String, required: true, unique: true },
+  username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   fullName: { type: FullNameSchema, required: true },
   age: { type: Number, required: true },
@@ -27,7 +27,7 @@ const userSchema = new Schema<TUser>({
   isActive: { type: Boolean, required: true },
   hobbies: { type: [String], required: true },
   address: { type: AddressSchema, required: true },
-  orders: {type: [OrderSchema], required: true},
+  orders: {type: [OrderSchema]},
 });
 
-export const Student = model<TUser>("user", userSchema);
+export const User = model<TUser>("user", userSchema);
