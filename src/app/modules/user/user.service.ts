@@ -1,5 +1,5 @@
 import { User } from "../user.model";
-import { TUser } from "./user.interface";
+import { TOrder, TUser } from "./user.interface";
 
 const createUserIntoDB=async(userData:TUser)=>{
      if (await User.isUserExists(userData.userId)) {
@@ -26,7 +26,9 @@ const updateUserToDB = async (id: number, updateData: TUser) => {
     if (!(await User.isUserExists(id))) {
       throw new Error("User not found");
     }
-  const result = await User.replaceOne({ userId: id }, updateData);
+  const result = await User.updateOne({ userId: id }, {
+    $set: updateData,
+  });
   return result;
 };
 
@@ -38,10 +40,41 @@ const deleteUserFromDB= async(id: number)=>{
     return result;
 }
 
+//order related service
+
+// const createOrder=async(id: number, orderData: TOrder, UserInfo:TUser )=>{
+//    if (!(await User.isUserExists(id))) {
+//       throw new Error("User not found");
+//     }
+//   if (User?.orders) {
+//    UserInfo.orders.push({
+//      productName: orderData.productName,
+//      price: orderData.price,
+//      quantity: orderData.quantity,
+//    });
+//   }
+//   else{
+//      UserInfo.orders = [
+//        {
+//          productName: orderData.productName,
+//          price: orderData.price,
+//          quantity: orderData.quantity,
+//        },
+//      ];
+
+//   }
+//   const result = await User.save();
+    
+    
+
+// }
+
+
 export const UserServices = {
   createUserIntoDB,
   getUsersDataFromDB,
   getSingleUserFromDB,
   updateUserToDB,
   deleteUserFromDB,
+  // createOrder
 };
