@@ -112,23 +112,24 @@ const updateUser = async (req: Request, res: Response) => {
   }
 };
 
-// const addOrder = async (req: Request, res: Response) => {
-// try{
-//     const {  user: orderData} = req.body;
-//     const userId = parseInt(req.params.userId, 10);
-//     const zotParseData = UserValidationSchema.parse(orderData);
-//     const userWithOrderStatus = await UserServices.getSingleUserFromDB(userId);
-  
-//     const result = await UserServices.createOrder(userId, zotParseData, userWithOrderStatus);
-
-// }catch(err:any){
-//    res.status(500).json({
-//      success: false,
-//      message: err.message || "User not found",
-//      error: err,
-//    });
-// }
-// };
+const addOrder = async (req: Request, res: Response) => {
+  try {
+    const { user: orderData } = req.body;
+    const userId = parseInt(req.params.userId, 10);
+    const result = await UserServices.createOrder(userId, orderData);
+    res.status(200).json({
+      success: true,
+      message: "Order created successfully!",
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || "User not found",
+      error: err,
+    });
+  }
+};
 
 export const userController = {
   createUser,
@@ -136,5 +137,5 @@ export const userController = {
   getSingleUser,
   updateUser,
   deleteUser,
-  // addOrder,
+  addOrder,
 };

@@ -14,7 +14,7 @@ app.use("/api/users", UserRoute);
 const getController=(req: Request, res: Response)=>[
   res.status(200).json({
     success: true,
-    message: "welcome to api"
+    message: "welcome to apiiiiii"
   })
 ]
 app.get("/", getController);

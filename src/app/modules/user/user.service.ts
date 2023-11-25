@@ -42,32 +42,17 @@ const deleteUserFromDB= async(id: number)=>{
 
 //order related service
 
-// const createOrder=async(id: number, orderData: TOrder, UserInfo:TUser )=>{
-//    if (!(await User.isUserExists(id))) {
-//       throw new Error("User not found");
-//     }
-//   if (User?.orders) {
-//    UserInfo.orders.push({
-//      productName: orderData.productName,
-//      price: orderData.price,
-//      quantity: orderData.quantity,
-//    });
-//   }
-//   else{
-//      UserInfo.orders = [
-//        {
-//          productName: orderData.productName,
-//          price: orderData.price,
-//          quantity: orderData.quantity,
-//        },
-//      ];
-
-//   }
-//   const result = await User.save();
-    
+const createOrder=async(id: number, orderData: TOrder )=>{
+   if (!(await User.isUserExists(id))) {
+      throw new Error("User not found");
+    }
+    const result = User.deleteOne(
+      { userId: id }
+    );
+    return result;
     
 
-// }
+}
 
 
 export const UserServices = {
@@ -76,5 +61,5 @@ export const UserServices = {
   getSingleUserFromDB,
   updateUserToDB,
   deleteUserFromDB,
-  // createOrder
+  createOrder
 };

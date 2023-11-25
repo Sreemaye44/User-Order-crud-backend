@@ -29,7 +29,7 @@ const userSchema = new Schema<TUser, UserModel>({
   isActive: { type: Boolean, required: true },
   hobbies: { type: [String], required: true },
   address: { type: AddressSchema, required: true },
-  orders: {type: [OrderSchema], default: undefined},
+  orders: {type: [OrderSchema]},
 });
 
 //create passowrd decrypt middleware
