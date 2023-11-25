@@ -29,14 +29,13 @@ const userSchema = new Schema<TUser, UserModel>({
   isActive: { type: Boolean, required: true },
   hobbies: { type: [String], required: true },
   address: { type: AddressSchema, required: true },
-  orders: {type: [OrderSchema]},
+  orders: {type: [OrderSchema], default: undefined},
 });
 
 //create passowrd decrypt middleware
 
 userSchema.pre("save", async function (next) {
-  const user = this;
-  user.password = await bcrypt.hash(user.password, Number(config.salt_rounds));
+  this.password = await bcrypt.hash(this.password, Number(config.salt_rounds));
   next();
 });
 
