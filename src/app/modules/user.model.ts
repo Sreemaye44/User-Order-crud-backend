@@ -15,8 +15,8 @@ const AddressSchema = new Schema<TAddress>({
 });
 const OrderSchema = new Schema<TOrder>({
   productName: { type: String, required: true },
-  price: { type: String, required: true },
-  quantity: { type: String, required: true },
+  price: { type: Number, required: true },
+  quantity: { type: Number, required: true },
 });
 
 const userSchema = new Schema<TUser, UserModel>({
@@ -29,7 +29,7 @@ const userSchema = new Schema<TUser, UserModel>({
   isActive: { type: Boolean, required: true },
   hobbies: { type: [String], required: true },
   address: { type: AddressSchema, required: true },
-  orders: {type: [OrderSchema]},
+  orders: {type: [OrderSchema], default: undefined},
 });
 
 //create passowrd decrypt middleware

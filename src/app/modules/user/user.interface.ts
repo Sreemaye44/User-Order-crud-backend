@@ -6,8 +6,8 @@ export type TFullName = {
 };
 export type TOrder = {
   productName: string;
-  price: string;
-  quantity: string;
+  price: number;
+  quantity: number;
 };
 export type TAddress = {
   street: string;
