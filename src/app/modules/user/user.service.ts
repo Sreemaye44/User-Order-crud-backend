@@ -83,7 +83,11 @@ const totalPriceofOrders = async (id: number) => {
     {
       $group: {
         _id: null,
-        totalPrice: { $sum: { $toInt: "$orders.quantity" } },
+        totalPrice: {
+          $sum: {
+            $multiply: [{ $toInt: "$orders.quantity" }, "$orders.price"],
+          },
+        },
       },
     },
   ]);
