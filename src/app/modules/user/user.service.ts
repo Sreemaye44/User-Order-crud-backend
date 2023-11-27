@@ -78,7 +78,7 @@ const totalPriceofOrders = async (id: number) => {
        throw error;
   }
   const result = User.aggregate([
-    { $match: { userId: 444 } },
+    { $match: { userId: id } },
     { $unwind: "$orders" },
     {
       $group: {
