@@ -24,12 +24,8 @@ const AddressValidationSchema = z.object({
 
 const OrderValidationSchema = z.object({
   productName: z.string(),
-  price: z.string().regex(/^\d+(\.\d{1,2})?$/, {
-    message: "Price must be a valid number with up to 2 decimal places",
-  }),
-  quantity: z.string().regex(/^\d+$/, {
-    message: "Quantity must be a positive integer",
-  }),
+  price: z.number(),
+  quantity: z.number(),
 });
 
 const UserValidationSchema = z.object({
@@ -49,4 +45,7 @@ const UserValidationSchema = z.object({
   orders: z.array(OrderValidationSchema).optional(),
 });
 
-export default UserValidationSchema;
+export const ValidationSchema={
+  UserValidationSchema, 
+  OrderValidationSchema
+}

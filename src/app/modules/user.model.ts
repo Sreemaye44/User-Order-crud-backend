@@ -15,8 +15,8 @@ const AddressSchema = new Schema<TAddress>({
 });
 const OrderSchema = new Schema<TOrder>({
   productName: { type: String, required: true },
-  price: { type: String, required: true },
-  quantity: { type: String, required: true },
+  price: { type: Number, required: true },
+  quantity: { type: Number, required: true },
 });
 
 const userSchema = new Schema<TUser, UserModel>({
