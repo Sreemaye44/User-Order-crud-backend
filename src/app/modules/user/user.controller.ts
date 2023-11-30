@@ -5,7 +5,7 @@ import { ValidationSchema } from "./user.validation";
 
 const createUser = async (req: Request, res: Response) => {
   try {
-    const { user: userData } = req.body;
+    const userData= req.body;
     const zotParseData = ValidationSchema.UserValidationSchema.parse(userData);
     const result = await UserServices.createUserIntoDB(zotParseData);
     const sanitizedResult = result.toObject({ getters: true });
